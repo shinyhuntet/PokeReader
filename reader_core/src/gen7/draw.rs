@@ -27,7 +27,7 @@ pub fn draw_citra_info(reader: &Gen7Reader) {
     pnp::println!("Seed ticks: {:08X}", main_rng_seed_context.ticks);
     pnp::println!("Seed date: {}", datetime.format("%b %d %Y"));
     pnp::println!("Seed time: {}", datetime.format("%H:%M:%S"));
-    pnp::println!("Time offset: {}", main_rng_seed_context.time_offset_ms);
+    pnp::println!("Time offset: {:X}", main_rng_seed_context.time_offset_ms);
 }
 
 pub fn draw_sos(reader: &Gen7Reader) {

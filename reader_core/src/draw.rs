@@ -4,19 +4,24 @@ use pkm_rs::{Nature, Pkx, Shiny};
 
 const WHITE: u32 = 0xffffff;
 const GREEN: u32 = 0x00cc00;
+const YELLOW: u32 = 0xffff00;
 const RED: u32 = 0xff0000;
+const ORANGE: u32 = 0xffa500;
 
-fn get_shiny_color(is_shiny: bool) -> u32 {
-    match is_shiny {
-        true => GREEN,
-        false => WHITE,
+fn get_shiny_color(shiny_type: Option<Shiny>) -> u32 {
+    match shiny_type {
+        Some(Shiny::Star) => YELLOW,
+        Some(Shiny::Square) => GREEN,
+        None => WHITE,
     }
 }
 
 fn get_iv_color(iv: u8) -> u32 {
     match iv {
-        30 | 31 => GREEN,
-        0 | 1 => RED,
+        31 => GREEN,
+        30 => YELLOW,
+        1 => ORANGE,
+        0 => RED,
         _ => WHITE,
     }
 }
@@ -110,7 +115,7 @@ pub fn draw_pkx(pkx: &impl Pkx) {
         Some(Shiny::Square) => "Square",
         None => "Not Shiny",
     };
-    let shiny_color = get_shiny_color(pkx.is_shiny());
+    let shiny_color = get_shiny_color(pkx.shiny_type());
     let iv_hp = pkx.iv_hp();
     let iv_atk = pkx.iv_atk();
     let iv_def = pkx.iv_def();
